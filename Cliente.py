@@ -1,9 +1,9 @@
 
 class Client:
-    def __init__(self, name, id):
+    def __init__(self, name, id, bills):
             self.__name = name
             self.__id = id
-            self.__bills = []
+            self.__bills = bills
 
     @property
     def name(self):

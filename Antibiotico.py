@@ -37,3 +37,11 @@ class Antibiotic:
     @animalType.setter
     def animalType(self, animalType):
         self.__animalType = animalType
+
+
+antibioticsList = [
+    {"name": "Penicillin", "price": 25.99, "dose": "500mg", "animalType": "Caprino"},
+    {"name": "Amoxicillin", "price": 20.99, "dose": "250mg", "animalType": "caprino"},
+    {"name": "Tetracycline", "price": 18.75, "dose": "200mg", "animalType": "Porcino"},
+    {"name": "Ciprofloxacin", "price": 30.50, "dose": "400mg", "animalType": "Bovino"}
+]
