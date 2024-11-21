@@ -1,9 +1,9 @@
 
-class Bill:
+class product:
     def __init__(self, date, total, products):
             self.__date = date
             self.__total = total
-            self.__products = products
+            self.__products = []
     
     @property
     def date(self):
@@ -21,10 +21,13 @@ class Bill:
     def total(self, total):
         self.__total = total
 
-    @property
-    def products(self):
-        return self.__products
-    
     @products.setter
-    def products(self, products):
-        self.__products = products
+    def products(self, product):
+        self.__products.append(product)
+    
+    def associatedTo(self, product):
+        self.products = product
+
+    def __str__(self):
+        string = "Fecha: {} Total: {}".format(self.__date, self.__total)
+        return string

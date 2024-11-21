@@ -38,10 +38,14 @@ class Antibiotic:
     def animalType(self, animalType):
         self.__animalType = animalType
 
+    def __str__(self):
+        string = "Producto: {} Precio: {} Dosis: {} Tipo de animal: {}".format(self.__name, self.__price, self.__dose, self.__animalType)
+        return string
 
-antibioticsList = [
-    {"name": "Penicillin", "price": 25.99, "dose": "500mg", "animalType": "Caprino"},
-    {"name": "Amoxicillin", "price": 20.99, "dose": "250mg", "animalType": "caprino"},
-    {"name": "Tetracycline", "price": 18.75, "dose": "200mg", "animalType": "Porcino"},
-    {"name": "Ciprofloxacin", "price": 30.50, "dose": "400mg", "animalType": "Bovino"}
-]
+
+producto1 = Antibiotic(**{"name": "Penicillin", "price": 25.99, "dose": "500mg", "animalType": "Caprino"}),
+producto2 = Antibiotic(**{"name": "Amoxicillin", "price": 20.99, "dose": "250mg", "animalType": "caprino"}),
+producto3 = Antibiotic(**{"name": "Tetracycline", "price": 18.75, "dose": "200mg", "animalType": "Porcino"}),
+producto4 = Antibiotic(**{"name": "Ciprofloxacin", "price": 30.50, "dose": "400mg", "animalType": "Bovino"})
+
+antibioticsList = [producto1, producto2, producto3, producto4]
