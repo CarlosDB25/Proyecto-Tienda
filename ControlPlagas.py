@@ -1,20 +1,20 @@
-from ProductoControl import ControlProduct as Product 
+from .ProductoControl import ControlProduct as Product 
 
 class PestControl(Product):
     def __init__(self, ica, name, price, applicationFrequency, deficiencyPeriod):
-        self.__defiencyPeriod = deficiencyPeriod
+        self.__deficiencyPeriod = deficiencyPeriod
         super().__init__(ica, name, price, applicationFrequency)
 
     @property
-    def defiencyPeriod(self):
-        return self.__defiencyPeriod
+    def deficiencyPeriod(self):
+        return self.__deficiencyPeriod
     
-    @defiencyPeriod.setter
-    def defiencyPeriod(self, defiencyPeriod):
-        self.__defiencyPeriod = defiencyPeriod
+    @deficiencyPeriod.setter
+    def deficiencyPeriod(self, deficiencyPeriod):
+        self.__deficiencyPeriod = deficiencyPeriod
 
     def __str__(self):
-        string = "ICA: {} Producto: {} Precio: {} Frecuencia: {} Periodo de carencia: {}".format(self.__ica, self.__name, self.__applicationFrequency, self.__defiencyPeriod)
+        string = "- Producto: {} Precio: {} ICA: {} Frecuencia: {} Periodo de carencia: {}".format(self.name, self.price, self.ica, self.applicationFrequency, self.deficiencyPeriod)
         return string
 
 

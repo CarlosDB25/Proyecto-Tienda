@@ -1,5 +1,5 @@
 
-class product:
+class Bill:
     def __init__(self, date, total, products):
             self.__date = date
             self.__total = total
@@ -21,6 +21,10 @@ class product:
     def total(self, total):
         self.__total = total
 
+    @property
+    def products(self):
+        return self.__products
+    
     @products.setter
     def products(self, product):
         self.__products.append(product)

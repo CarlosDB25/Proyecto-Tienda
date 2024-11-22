@@ -21,6 +21,10 @@ class Client:
     def id(self, id):
         self.__id = id
 
+    @property
+    def bills(self):
+        return self.__bills
+
     @bills.setter
     def bills(self, bill):
         self.__bills.append(bill)
