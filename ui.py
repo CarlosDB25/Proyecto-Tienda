@@ -2,7 +2,7 @@ def getProduct(productList):
     counter = 1
     for products in productList:
         for product in products:
-            print(f'{counter}.{product['name']} - ${product['price']}')
+            print(f'{counter}.{product.name} - ${product.price}')
             counter += 1
 
     chosenProduct = int(input("INGRESE EL NUMERO SEGUN EL QUE SEA SU PRODUCTO DESEADO: "))
