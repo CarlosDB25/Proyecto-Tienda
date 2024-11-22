@@ -1,56 +1,57 @@
 from MODELO.Tienda import Store
 from MODELO.Cliente import Client
-from MODELO.Factura import Bill 
 from MODELO import ControlPlagas
 from MODELO import ControlFertilizantes
 from MODELO import Antibiotico
 from UI import ui
-from CRUD import crud
+from CRUD import crudCliente, crudFactura, crudProductoControl, crudAntibiotico
 import os
 
-def endBilling(customer, bill, crudInstance, farmStore):
-    farmStore.clients.append(customer)
-    crudInstance.showBill(bill)
+def endBilling(customer, bill, crudBill, farmStore):
+    farmStore.associatedTo(customer)
+    print("|     FACTURA     |")
+    print(customer)
+    print(bill)
+
+    for product in bill.products:
+        print(product)
 
     return farmStore
 
-def billing(productList, crudInstance):
+def billing(productList, crudBill):
     products = ui.getProducts(productList)
-    billData = crudInstance.createBill(products)
-    bill = Bill(**billData)
+    bill = crudBill.create(products=products)
+
+    for product in products:
+        bill.associatedTo(product)
 
     return bill
 
-def makePurchase(productList, crudInstance, farmStore):
+def makePurchase(productList, crudCustomer, crudBill, farmStore):
     clientData = ui.getClientData()
-    customer, found = crudInstance.searchBillById(clientData[1], farmStore)
+    customer = crudCustomer.searchBy(id = clientData[1], clients = farmStore.clients)
     os.system('cls')
 
-    if found:
-        bill = billing(productList, crudInstance)
-        customer.bills.append(bill)
+    if customer == None:
+        customer = crudCustomer.create(clientData[0], clientData[1], farmStore)
         os.system('cls')
-        farmStore = endBilling(customer, bill, crudInstance, farmStore)
-        return farmStore
-    
-    bill = billing(productList, crudInstance)
-    clientData.append(bill)
-    client = crudInstance.createClient(clientData)
-    customer = Client(**client)
+        print("Cliente creado con éxito.\n\n")
+
+    bill = billing(productList, crudBill)
+    customer.associatedTo(bill)
     os.system('cls')
-    farmStore = endBilling(customer, bill, crudInstance, farmStore)
+    farmStore = endBilling(customer, bill, crudBill, farmStore)
 
     return farmStore
 
-
 def main():
-    crudInstance = crud.Crud()
-    
     productList = [ControlPlagas.pestList, ControlFertilizantes.fertilizersList, Antibiotico.antibioticsList]
     farmStore = Store([])
+    crudCustomer = crudCliente.ClientCrud()
+    crudBill = crudFactura.BillCrud()
 
     while(True):
-        
+        print("\n\n")
         option = ui.mainMenu()
         os.system('cls')
 
@@ -58,7 +59,7 @@ def main():
             break
 
         if(option == 1):
-            farmStore = makePurchase(productList, crudInstance, farmStore)
+            farmStore = makePurchase(productList, crudCustomer, crudBill, farmStore)
             continue
 
         if(option == 2):
@@ -66,9 +67,19 @@ def main():
                 print("No hay facturas para mostrar.\n\n")
                 continue
             id = ui.getId()
-            crudInstance.showBills(id, farmStore)
-            continue
+            customer = crudCustomer.searchBy(id = id, clients = farmStore.clients)
 
+            if customer == None:
+                print("No se encontró el cliente.\n\n")
+                continue
+            else:
+                print(customer)
+                for bill in customer.bills:
+                    print("\n|     FACTURA     |")
+                    print(bill)
+                    for product in bill.products:
+                        print(product)
+            continue
 
 if __name__ == "__main__":
     main()
