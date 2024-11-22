@@ -8,10 +8,5 @@ class PCrud(ABC):
         raise NotImplementedError
     
     @abstractmethod
-    def search_by(self, **kwargs):
+    def searchBy(self, **kwargs):
         raise NotImplementedError
-
-    @staticmethod
-    def hasMany(one, many):
-        for m in many:
-            one.associatedTo(m)

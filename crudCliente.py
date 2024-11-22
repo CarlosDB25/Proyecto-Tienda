@@ -1,19 +1,20 @@
 from .pCrud import PCrud
-from MODELO.Cliente import client
+from MODELO.Cliente import Client
 from MODELO.Tienda import Store as store
 
-class clientCrud(PCrud.PCrud):
-    def create(self, **kwargs):
-        clientRegister = client(self['name'], self['id'])
+class ClientCrud(PCrud):
+    def create(self, name, id, store):
+        clientRegister = Client(name, id, None)
+        store.associatedTo(clientRegister)
 
-        store.clients.append(clientRegister)
+        return clientRegister
 
 
-    def search_by(self, **kwargs):
-        clientsRegisters = store.clients
+    def searchBy(self, id, clients):
+        clientsRegisters = clients
 
-        for clientRegister in client:
+        for client in clientsRegisters:
             toCompare = client.id
-            if toCompare == self['id']:
+            if toCompare == id:
                 return client
                 break

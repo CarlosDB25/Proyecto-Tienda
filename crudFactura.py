@@ -1,6 +1,6 @@
 from datetime import datetime
 from .pCrud import PCrud
-from MODELO.Factura import bill
+from MODELO.Factura import Bill
 from MODELO.Tienda import Store as store
 
 
@@ -14,12 +14,11 @@ def getPrices(products):
     return prices
 
 
-class billCrud:
-    def create(self, **kwargs):
-        billRegister = bill(getDate(), sum(getPrices(self['products'])))
+class BillCrud(PCrud):
+    def create(self, products):
+        billRegister = Bill(getDate(), sum(getPrices(products)), None)
+        return billRegister
 
-        store.bills.append(billRegister)
 
-
-    def search_by(self, **kwargs):
+    def searchBy(self, **kwargs):
         pass

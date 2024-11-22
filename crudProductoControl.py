@@ -3,16 +3,16 @@ from MODELO import ProductoControl
 from MODELO import ControlPlagas 
 from MODELO import ControlFertilizantes 
 
-class controlProductCrud:
+class controlProductCrud(PCrud):
     def create(self, **kwargs):
-        if self['type'] == 'Pest':
-            product = ControlPlagas.PestControl(self['ica'], self['name'], self['price'], self['applicationFrequency'], self['deficiencyPeriod'])
+        if kwargs['type'] == 'Pest':
+            product = ControlPlagas.PestControl(kwargs['ica'], kwargs['name'], kwargs['price'], kwargs['applicationFrequency'], kwargs['deficiencyPeriod'])
             ControlPlagas.pestList.append(product)
 
-        elif self['type'] == 'Fertilizer':
-            product = ControlPlagas.PestControl(self['ica'], self['name'], self['price'], self['applicationFrequency'], self['lastAdministration'])
+        elif kwargs['type'] == 'Fertilizer':
+            product = ControlPlagas.PestControl(kwargs['ica'], kwargs['name'], kwargs['price'], kwargs['applicationFrequency'], kwargs['lastAdministration'])
             ControlFertilizantes.fertilizersList.append(product)
 
 
-    def search_by(self, **kwargs):
+    def searchBy(self, **kwargs):
         pass
